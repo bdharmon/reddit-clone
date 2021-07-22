@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './css/createNewPost.css';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 
 export const CreateNewPost = ({ thisSubReddit }) => {
     const [showCommunityDropdownList, setShowCommunityDropdownList] = useState(false);
-    const [communityDropdownList, setCommunityDropdownList] = useState(null);
-    const subreddits = useSelector(state => state.subredditListReducer);
+    const history = useHistory();
+    const { items } = useSelector(state => state.subredditListReducer);
     const [createData, setCreateData] = useState({
         title: "",
         content: "",
@@ -26,10 +27,6 @@ export const CreateNewPost = ({ thisSubReddit }) => {
     });
 
     useEffect(() => {
-        setCommunityDropdownList(subreddits);
-    }, [subreddits]);
-
-    useEffect(() => {
         if (thisSubReddit) {
             setCreateData({ ...createData, subreddit: thisSubReddit.id })
         }
@@ -46,8 +43,7 @@ export const CreateNewPost = ({ thisSubReddit }) => {
                 body: JSON.stringify(createData),
                 headers: { "Content-Type": "application/json" }
             })
-                .then(response => response.json())
-                .then(json => console.log(json));
+                .then(window.location.href = `/r/${thisSubReddit.name}`);
         } catch (error) {
             console.error(error);
         }
@@ -70,8 +66,8 @@ export const CreateNewPost = ({ thisSubReddit }) => {
                 <p>{thisSubReddit ? `r/${thisSubReddit.display_name}` : "Choose a community"}</p>
                 <i className="fas fa-chevron-down"></i>
                 {showCommunityDropdownList ? (<ul id="community-dropdown-list">
-                    {communityDropdownList.fetchedData.map((item => (
-                        <Link to={`/r/${item.name}/submit`} key={item.id}><li>r/{item.name}</li></Link>)))}
+                    {items.map((item => (
+                        <Link to={`/r/${item.name}/submit`} key={item.id}><li>r/{item.display_name}</li></Link>)))}
                 </ul>) : null}
             </div>
 

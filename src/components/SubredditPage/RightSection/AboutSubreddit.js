@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation, useRouteMatch } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import '../css/aboutSubreddit.css';
 
 export const AboutSubreddit = ({ thisSubReddit }) => {

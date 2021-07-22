@@ -1,15 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import '../../css/postComments.css';
 import { Comment } from './Comment';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router';
+import { fetchComments } from '../../../../redux/actions/postComments';
 
 export const PostComments = () => {
-    const fetchedComments = useSelector(state => state.commentReducer)
-    const [comments, setComments] = useState(fetchedComments.comments);
+    const { loading, items } = useSelector(state => state.allCommentsReducer);
+    const { postid } = useParams();
+    const dispatch = useDispatch();
+    const [comments, setComments] = useState(items);
 
     useEffect(() => {
-        setComments(fetchedComments.comments);
-    }, []);
+        dispatch(fetchComments(postid));
+    }, [comments]);
+
+    const loadedComments = () => {
+        if (items.length < 1) {
+            return ("No comment(s) to display.");
+        }
+        else {
+            return (items.map((item) => <Comment key={item.id} item={item} />))
+        }
+    }
 
     return (
         <div>
@@ -20,7 +33,7 @@ export const PostComments = () => {
                 </div>
             </div>
 
-            {comments.length > 0 ? comments.map((item) => <Comment key={item.id} item={item} />) : "No comment(s) to display."}
+            {loading ? "Loading..." : loadedComments()}
         </div>
     );
 };

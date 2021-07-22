@@ -1,12 +1,14 @@
 import { combineReducers } from "redux";
-import subredditListReducer from "./subredditList";
-import subredditPageReducer from "./subredditPage";
-import commentReducer from "./comment";
+import subredditListReducer from "./subredditDropdownList";
+import allPostsReducer from "./allPosts";
+import allSubredditPostsReducer from "./allSubredditPosts";
+import allCommentsReducer from "./postComments";
 
 const allReducers = combineReducers({
     subredditListReducer,
-    subredditPageReducer,
-    commentReducer
+    allPostsReducer,
+    allSubredditPostsReducer,
+    allCommentsReducer
 });
 
 export default allReducers;

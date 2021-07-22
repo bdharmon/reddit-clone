@@ -7,13 +7,16 @@ import { MainPost } from './PostSection/MainPost';
 import { RightSection } from './RightSection/RightSection';
 import { SubredditHeader } from './SubredditHeader';
 import { Fragment } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchSubredditPosts } from '../../redux/actions/allSubredditPosts';
 
 export const SubredditPage = () => {
+    const { items, loading } = useSelector(state => state.allSubredditPostsReducer);
     const { subreddit } = useParams();
-    const [posts, setPosts] = useState([])
     const [thisSubReddit, setThisSubReddit] = useState(null);
     const [isLoading, setLoading] = useState(true);
     const { url } = useRouteMatch();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         try {
@@ -30,16 +33,7 @@ export const SubredditPage = () => {
     }, [subreddit])
 
     useEffect(() => {
-        try {
-            fetch(`http://127.0.0.1:8000/redditclone/?subreddit__name=${subreddit}`)
-                .then(response => response.json())
-                .then(data => {
-                    setPosts(data);
-                });
-        } catch (error) {
-            console.error(error);
-            return;
-        }
+        dispatch(fetchSubredditPosts(subreddit));
     }, [subreddit])
 
 
@@ -50,9 +44,9 @@ export const SubredditPage = () => {
                     <Switch>
 
                         <Route exact path={`${url}`}>
-                            <div className="sr-posts-list">
-                                {posts.length < 1 ? "No post(s) to display." : posts.map(item => <Post key={item.id} item={item} />)}
-                            </div>
+                            {loading ? "Loading..." : <div className="sr-posts-list">
+                                {items.length < 1 ? "No post(s) to display." : items.map(item => <Post key={item.id} item={item} />)}
+                            </div>}
                         </Route>
 
                         <Route exact path={`${url}/post/:postid`}>
