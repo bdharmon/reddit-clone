@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #D7DADC;
+  text-decoration: none;
+}
+
+body, html {
+  background-color: black;
+  height: 100%;
+}
+
+.App {
+  align-items: center;
+  background-color: black;
+  color: #D7DADC;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+  height: 100%;
+  letter-spacing: 0.5px;
+}

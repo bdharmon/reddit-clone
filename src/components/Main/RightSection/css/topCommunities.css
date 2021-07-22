@@ -1,0 +1,104 @@
+.tc-header {
+    background: linear-gradient(90deg, rgba(177,113,0,1) 0%, rgba(111,68,4,1) 63%, rgba(0,0,0,1) 100%);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: white;
+    padding: 30px 15px 5px 15px;
+    width: 100%;
+}
+
+.tc-footer {
+    color: #4FBCFF;
+    width: 100%;
+}
+
+.tc-footer ul {
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.tc-footer ul li {
+    background-color: rgb(49, 49, 49);
+    border-radius: 9999px;
+    font-size: 0.9rem;
+    margin-right: 10px;
+    padding: 8px;
+}
+
+.tc-footer ul li:last-child {
+    margin-right: 0;
+}
+
+.tc-footer ul li:hover {
+    cursor: pointer;
+    background-color: rgb(70, 70, 70);
+}
+
+.top-comm {
+    align-items: center;
+    background-color: #1d1d1d;
+    border: 1px solid rgb(73, 73, 73);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    letter-spacing: 0.5px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    width: 100%;
+}
+
+.top-comm button {
+    background-color: #D7DADC;
+    border: none;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 10px;
+    width: 100%;
+}
+
+.top-comm button:hover {
+    background-color: rgb(180, 180, 180);
+    cursor: pointer;
+}
+
+.top-comm .top-comm-item {
+    align-items: center;
+    display: flex;
+    margin-bottom: 10px;
+    padding: 0 15px;
+    width: 100%;
+}
+
+.top-comm .top-comm-item:first-child {
+    padding: 0;
+}
+
+.top-comm .subreddit-rank {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.top-comm .subreddit-rank li {
+    align-items: center;
+    border-bottom: 1px solid rgb(73, 73, 73);
+    display: flex;
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+.top-comm .subreddit-rank li p, .top-comm ul li i {
+    margin-right: 15px;
+}
+
+.top-comm .view-all-btn {
+    border: none;
+    border-radius: 9999px;
+    width: 100%;
+}

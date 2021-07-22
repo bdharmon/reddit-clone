@@ -1,0 +1,21 @@
+.sort-by-container {
+    align-items: center;
+    color: #4FBCFF;
+    display: flex;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    padding: 0 54px;
+}
+
+.sort-by-container p {
+    margin-right: 7px;
+}
+
+.sort-by {
+    align-items: center;
+    border-bottom: 1px solid rgb(73, 73, 73);
+    display: flex;
+    padding-bottom: 10px;
+    width: 100%;
+}

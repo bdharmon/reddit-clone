@@ -1,0 +1,37 @@
+.sort-post {
+    align-items: center;
+    background-color: #1d1d1d;
+    border: 1px solid rgb(73, 73, 73);
+    border-radius: 5px;
+    display: flex;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    width: 100%;
+}
+
+.sort-post li {
+    align-items: center;
+    border-radius: 9999px;
+    display: flex;
+    justify-content: center;
+    margin-right: 20px;
+    padding: 10px;
+}
+
+.sort-post li:hover {
+    background-color: rgb(71, 71, 71);
+    cursor: pointer;
+}
+
+.sort-post li p {
+    margin-left: 8px;
+}
+
+.sort-post li:last-child {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.sort-post li:last-child i:first-child {
+    margin-right: 5px;
+}

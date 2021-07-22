@@ -1,0 +1,218 @@
+.create-new-post {
+    background-color: #1d1d1d;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 5px;
+    max-width: 750px;
+    padding: 15px;
+    width: 100%;
+}
+
+/* Create new post header */
+.cnp-header {
+    border-bottom: 1px solid rgb(73, 73, 73);
+}
+
+.cnp-header p {
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 15px 0;
+}
+
+/* Choose community section */
+.cnp-choose-comm {
+    align-items: center;
+    background-color: #1d1d1d;
+    border: 1px solid rgb(73, 73, 73);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+    max-width: 300px;
+    padding: 7px;
+    position: relative;
+    width: 100%;
+}
+
+.cnp-choose-comm:hover {
+    background-color: #222222;
+    cursor: pointer;
+}
+
+.cnp-choose-comm i {
+    margin-left: auto;
+}
+
+.choose-circle {
+    border: 2px dotted rgb(73, 73, 73);
+    border-radius: 50%;
+    height: 30px;
+    margin-right: 10px;
+    width: 30px;
+}
+
+/* Submission header */
+.submission-header {
+    display: flex;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.submission-header ul {
+    align-items: center;
+    border-bottom: 1px solid rgb(73, 73, 73);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.submission-header ul li {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px 45px;
+    width: 100%;
+}
+
+.submission-header ul li:hover {
+    background-color: #363636;
+    cursor: pointer;
+}
+
+.submission-header ul li i {
+    margin-right: 5px;
+}
+
+.submission-header ul li:first-child, .submission-header ul li:nth-child(2) {
+    border-right: 1px solid rgb(73, 73, 73);
+}
+
+/* Submission title */
+.submission-title {
+    align-items: center;
+    background-color: #292929;
+    border: 1px solid #4b4b4b00;
+    border-radius: 5px;
+    display: flex;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+
+.submission-title:hover {
+    border: 1px solid #888888;
+}
+
+.submission-title input {
+    background: none;
+    border: none;
+    color: #D7DADC;
+    font-size: 1.1rem;
+    height: 100%;
+    outline: none;
+    width: 100%;
+}
+
+.submission-title p {
+    margin-left: 10px;
+}
+
+/* Submission content body */
+.submission-content {
+    align-items: center;
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.submission-content textarea {
+    background-color: #1d1d1d;
+    border: 1px solid rgb(73, 73, 73);
+    border-radius: 5px;
+    color: #D7DADC;
+    resize: vertical;
+    font-size: 1.1rem;
+    margin-top: 5px;
+    height: 140px;
+    outline: none;
+    padding: 5px 10px;
+    width: 100%;
+}
+
+/* Submission flair */
+.submission-flair {
+    align-items: center;
+    border: 1px solid rgb(73, 73, 73);
+    border-radius: 9999px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    padding: 8px 20px;
+    width: max-content;
+}
+
+.submission-flair:hover {
+    background-color: #363636;
+    cursor: pointer;
+}
+
+.submission-flair .fa-tag, .submission-flair p {
+    margin-right: 10px;
+}
+
+/* Submission submit */
+.submission-submit {
+    align-items: center;
+    border-top: 1px solid rgb(73, 73, 73);
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 15px;
+}
+
+.submission-submit button {
+    align-items: center;
+    border: none;
+    border-radius: 9999px;
+    display: flex;
+    font-size: 1rem;
+    font-weight: 700;
+    justify-content: center;
+    padding: 8px 20px;
+    width: max-content;
+}
+
+.submission-submit button:hover {
+    cursor: pointer;
+    background-color: rgb(180, 180, 180);
+}
+
+#community-dropdown-list {
+    background-color: #1d1d1d;
+    border: 1px solid rgb(73, 73, 73);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+}
+
+#community-dropdown-list a {
+    border-bottom: 1px solid rgb(73, 73, 73);
+    color: #D7DADC;
+    text-decoration: none;
+}
+
+#community-dropdown-list li {
+    border-bottom: 1px solid rgb(73, 73, 73);
+    padding: 10px;
+}
+
+#community-dropdown-list li:hover {
+    background-color: rgb(71, 71, 71);
+}
+
+#community-dropdown-list li:last-of-type {
+    border-bottom: none;
+}

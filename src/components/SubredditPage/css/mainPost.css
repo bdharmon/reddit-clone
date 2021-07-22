@@ -1,0 +1,7 @@
+.main-post {
+    background-color: #1d1d1d;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}

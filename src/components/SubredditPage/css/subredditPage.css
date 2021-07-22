@@ -1,0 +1,15 @@
+.subreddit-page {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.sr-body {
+    display: flex;
+    justify-content: center;
+}
+
+.sr-posts-list {
+    display: flex;
+    flex-direction: column;
+}

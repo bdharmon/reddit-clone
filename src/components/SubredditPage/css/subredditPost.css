@@ -1,0 +1,92 @@
+.left {
+    align-items: center;
+    background-color: rgb(22, 22, 22);
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+}
+
+.left .fa-arrow-down:hover {
+    color: #4FBCFF;
+}
+
+.left .fa-arrow-up:hover {
+    color: #FF4500;
+}
+
+.left p {
+    margin: 7px 0;
+}
+
+.post {
+        background-color: #1d1d1d;
+        border: 1px solid rgb(73, 73, 73);
+        border-radius: 5px;
+        display: flex;
+        margin-bottom: 15px;
+        max-width: 650px;
+        width: 100%;
+}
+
+.post:hover {
+    border: 1px solid #888888;
+    cursor: pointer;
+}
+
+.posted-by {
+    color: rgb(179, 179, 179);
+    font-weight: 300 !important;
+}
+
+.post-footer ul {
+    display: flex;
+}
+
+.post-footer ul li {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.post-footer ul li:last-child {
+    margin-right: 0;
+}
+
+.post-footer ul li:hover {
+    background-color: rgb(71, 71, 71);
+}
+
+.post-footer ul li i {
+    margin-right: 8px;
+}
+
+.post-footer ul li:last-child i {
+    margin-right: 0;
+}
+
+.post-header {
+    align-items: center;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.post-header p {
+    font-weight: 700;
+    margin-left: 5px;
+}
+
+.post-body {
+    margin-bottom: 10px;
+}
+
+.post-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px 0 10px;
+}

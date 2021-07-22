@@ -1,0 +1,38 @@
+.create-post {
+    align-items: center;
+    background-color: #1d1d1d;
+    border: 1px solid rgb(73, 73, 73);
+    border-radius: 5px;
+    display: flex;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    width: 100%;
+}
+
+.create-post input {
+    background: none;
+    color: #D7DADC;
+    font-size: 1.1rem;
+    height: 100%;
+    margin-right: 15px;
+    width: 100%;
+}
+
+.create-post input:focus {
+    border: 1px solid #888888;
+    outline: none;
+}
+
+.create-post .fa-reddit {
+    margin-right: 15px;
+}
+
+.create-post i:nth-child(3), .create-post i:last-child {
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.create-post i:nth-child(3):hover, .create-post i:last-child:hover {
+    background-color: rgb(71, 71, 71);
+    cursor: pointer;
+}

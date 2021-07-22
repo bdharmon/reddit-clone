@@ -1,0 +1,26 @@
+.sr-header {
+    display: flex;
+    flex-direction: column;
+    height: 125px;
+    margin-bottom: 20px;
+    margin-top: -15px;
+    width: 100%;
+}
+
+.sr-header-info {
+    align-items: center;
+    background-color: #1d1d1d;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.sr-header-info i {
+    margin-right: 10px;
+}
+
+.top-half-color {
+    background-color: rgb(156, 43, 43);
+    height: 100%;
+    width: 100%;
+}

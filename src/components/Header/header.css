@@ -1,0 +1,247 @@
+.account-btn {
+    align-items: center;
+    border: 1px solid #4b4b4b00;
+    border-radius: 5px;
+    display: flex;
+    font-size: 0.9rem;
+    max-width: 215px;
+    padding: 10px;
+    width: 100%;
+}
+
+.account-btn:hover {
+    border: 1px solid #4b4b4b;
+    cursor: pointer;
+}
+
+.account-btn .account-status {
+    background-color: greenyellow;
+    border: 2px solid #1d1d1d;
+    border-radius: 50%;
+    height: 12px;
+    position: absolute;
+    width: 12px;
+    top: 18px;
+    left: 18px;
+}
+
+.account-btn .fa-reddit-square {
+    position: relative;
+}
+
+.account-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 8px;
+    margin-right: auto;
+}
+
+.account-name p {
+    margin-bottom: 5px;
+}
+
+.account-name .karma {
+    display: flex;
+}
+
+.account-name .karma i {
+    color: #FF4500;
+    margin-right: 3px;
+}
+
+.header {
+    align-items: center;
+    background-color: #1d1d1d;
+    border-bottom: 1px solid rgb(73, 73, 73);
+    display: flex;
+    left: 0;
+    margin-bottom: 15px;
+    padding: 5px 20px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+}
+
+.home-icon {
+    align-content: center;
+    display: flex;
+    justify-content: center;
+}
+
+.login-container {
+    align-items: center;
+    display: flex;
+}
+
+.login-container button {
+    border: none;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 10px 40px;
+    width: 150px;
+}
+
+.login-container button:hover {
+    background-color: rgb(180, 180, 180);
+    cursor: pointer;
+}
+
+.login-container button:first-child {
+    background-color: #1d1d1d;
+    border: 1px solid #D7DADC;
+    color: #D7DADC;
+    margin-right: 20px;
+}
+
+.login-container button:first-child:hover {
+    cursor: pointer;
+    background-color: #252525;
+}
+
+.reddit-icon {
+    height: 35px;
+    margin-right: 20px;
+}
+
+.search {
+    align-items: center;
+    background-color: #292929;
+    border: 1px solid #4b4b4b00;
+    border-radius: 9999px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    width: 100%;
+}
+
+.search.not-logged {
+    width: 70%;
+}
+
+.search:hover {
+    border: 1px solid #888888;
+}
+
+.search input {
+    background: none;
+    border: none;
+    color: #D7DADC;
+    font-size: 1.1rem;
+    height: 100%;
+    margin-left: 10px;
+    width: 100%;
+}
+
+.search input:focus {
+    outline: none;
+}
+
+.sections {
+    align-items: center;
+    display: flex;
+}
+
+.sections .coin-btn {
+    background-color: #FFE10D;
+    border-radius: 9999px;
+    color: black;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 20px;
+    padding: 10px;
+    width: max-content;
+}
+
+.sections .coin-btn:hover {
+    background-color: #ebd111;
+}
+
+.sections .fa-donate {
+    margin-right: 8px;
+}
+
+.sections li {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.sections-btn {
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sections-btn:hover {
+    background-color: rgb(71, 71, 71);
+}
+
+.sections .vertical-line {
+    background-color: #4b4b4b;
+    height: 30px;
+    width: 1px;
+}
+
+#subreddit-dropdown-list {
+    background-color: #1d1d1d;
+    border: 1px solid rgb(73, 73, 73);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+}
+
+#subreddit-dropdown-list a {
+    border-bottom: 1px solid rgb(73, 73, 73);
+    color: #D7DADC;
+    text-decoration: none;
+}
+
+#subreddit-dropdown-list li {
+    border-bottom: 1px solid rgb(73, 73, 73);
+    padding: 10px;
+}
+
+#subreddit-dropdown-list li:hover {
+    background-color: rgb(71, 71, 71);
+}
+
+#subreddit-dropdown-list li:last-of-type {
+    border-bottom: none;
+}
+
+.subreddit-list {
+    align-items: center;
+    border: 1px solid rgba(73, 73, 73, 0);
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    margin-right: 20px;
+    max-width: 275px;
+    position: relative;
+    width: 100%;
+}
+
+.subreddit-list i {
+    padding: 10px;
+}
+
+.subreddit-list:hover {
+    border: 1px solid #4b4b4b;
+}
+
+.subreddit-title {
+    margin-right: auto;
+}
+
+ul {
+    list-style: none;
+}
