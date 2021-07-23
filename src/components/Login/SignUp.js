@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './login.css';
 
 export const SignUp = () => {
@@ -44,7 +45,7 @@ export const SignUp = () => {
                 <button type="submit" onClick={(e) => submitHandler(e)}>Sign Up</button>
             </div>
 
-            <p>Already have an account? <span>Log In.</span></p>
+            <p>Already have an account? <Link to="/login"><span>Log In.</span></Link></p>
         </div>
     );
 };

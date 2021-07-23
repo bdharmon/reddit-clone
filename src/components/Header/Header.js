@@ -7,6 +7,7 @@ import { Sections } from './Sections';
 import { Account } from './Account';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Fragment } from 'react';
 
 export const Header = () => {
     const { isAuthenticated } = useSelector(state => state.authReducer);
@@ -18,9 +19,9 @@ export const Header = () => {
             <Search />
 
             {!isAuthenticated ? <div className="login-container">
-                <button>Log In</button>
-                <button>Sign Up</button>
-            </div> : <div><Sections /> <Account /></div>}
+                <Link to="/login"><button>Log In</button></Link>
+                <Link to="/register"><button>Sign Up</button></Link>
+            </div> : <Fragment><Sections /> <Account /></Fragment>}
         </div>
     );
 };
