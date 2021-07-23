@@ -9,11 +9,10 @@ export const PostComments = () => {
     const { loading, items } = useSelector(state => state.allCommentsReducer);
     const { postid } = useParams();
     const dispatch = useDispatch();
-    const [comments, setComments] = useState(items);
 
     useEffect(() => {
         dispatch(fetchComments(postid));
-    }, [comments]);
+    }, []);
 
     const loadedComments = () => {
         if (items.length < 1) {

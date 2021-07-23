@@ -73,6 +73,7 @@
 .login-container {
     align-items: center;
     display: flex;
+    margin-left: 20px;
 }
 
 .login-container button {

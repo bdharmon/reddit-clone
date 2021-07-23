@@ -1,35 +1,39 @@
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from rest_framework import serializers
-from .models import Account, Comment, Post, Subreddit
+from .models import Comment, Post, Subreddit
 
-class RegisterAccountSerializer(serializers.ModelSerializer):
-
-    password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
-
+# User serializer
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Account
-        fields = ['email', 'username', 'password', 'password2']
-        extra_kwargs = {
-            'password': {'write_only': True}
-        }
-    
-    def create(self, validated_data):
-        if self.validated_data['password'] == self.validated_data['password2']:
-            user = Account.objects.create_user(validated_data['email'], validated_data['username'], validated_data['password'])
-            return user
-        else:
-            raise serializers.ValidationError({"Password": "Passwords must match."})
+        model = User
+        fields = ["id", "username", "email"]
 
-class LoginSerializer(serializers.Serializer):
-    email = serializers.CharField()
-    password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+# Register serializer
+class RegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "username", "email", "password"]
+        extra_kwargs = {"password": {"write_only": True}}
+
+    def create(self, validated_data):
+        user = User.objects.create_user(validated_data["username"], validated_data["email"], validated_data["password"])
+
+        return user
+
+class LoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["username", "password"]
     
+    username = serializers.CharField()
+    password = serializers.CharField()
+
     def validate(self, data):
         user = authenticate(**data)
         if user and user.is_active:
             return user
-        else:
-            raise serializers.ValidationError("Invalid Credentials.")
+        raise serializers.ValidationError("Incorrect Credentials.")
 
 class SubredditSerializer(serializers.ModelSerializer):
     class Meta:

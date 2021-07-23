@@ -1,37 +1,47 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
-from rest_framework import viewsets
-from .models import Account, Comment, Post, Subreddit
-from .serializers import CommentSerializer, PostSerializer, RegisterAccountSerializer, LoginSerializer, SubredditSerializer
-from knox.auth import AuthToken
+from rest_framework import generics, viewsets, permissions
+from .models import Comment, Post, Subreddit
+from .serializers import CommentSerializer, LoginSerializer, PostSerializer, SubredditSerializer, UserSerializer, RegisterSerializer
+from knox.models import AuthToken
 
-# Create your views here.
-class RegisterAccountViewSet(viewsets.ModelViewSet):
-    queryset = Account.objects.all()
-    serializer_class = RegisterAccountSerializer
+# Register API
+class RegisterAPI(viewsets.ModelViewSet):
+    serializer_class = RegisterSerializer
 
-    def create(self, request):
+    def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         return Response({
-            "user": RegisterAccountSerializer(user, context=self.get_serializer_context()).data,
+            "user": UserSerializer(user, context=self.get_serializer_context()).data,
             "token": AuthToken.objects.create(user)[1]
         })
 
-class LoginViewSet(viewsets.ModelViewSet):
-    queryset = Account.objects.all()
+# Login API
+class LoginAPI(viewsets.ModelViewSet):
     serializer_class = LoginSerializer
 
-    def create(self, request):
+    def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
         return Response({
-            "user": LoginSerializer(user, context=self.get_serializer_context()).data,
+            "user": UserSerializer(user, context=self.get_serializer_context()).data,
             "token": AuthToken.objects.create(user)[1]
         })
+
+# Get User API
+class UserAPI(generics.RetrieveAPIView):
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        return self.request.user
 
 # all subreddit pages (navbar selector)
 class SubredditViewSet(viewsets.ModelViewSet):
@@ -56,11 +66,20 @@ class SubredditDetailViewSet(viewsets.ModelViewSet):
 
 # All Posts
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
 
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["subreddit__name", "id"]
+
+    serializer_class = PostSerializer
+
+    def get_queryset(self):
+        return self.request.user.posts.all()
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()

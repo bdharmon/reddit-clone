@@ -7,6 +7,7 @@ import { SignUp } from './components/Login/SignUp';
 import { Main } from './components/Main/Main';
 import { SubredditPage } from './components/SubredditPage/SubredditPage';
 import { CreateNewPost } from './components/CreateNewPost/CreateNewPost';
+import { PrivateRoute } from './components/common/PrivateRoute';
 
 function App() {
   return (
@@ -23,17 +24,13 @@ function App() {
             <SignUp />
           </Route>
 
-          <Route exact path="/">
-            <Main />
-          </Route>
+          <PrivateRoute exact path="/" component={Main} />
 
           <Route exact path="/submit">
             <CreateNewPost />
           </Route>
 
-          <Route path="/r/:subreddit">
-            <SubredditPage />
-          </Route>
+          <PrivateRoute path="/r/:subreddit" component={Main} />
         </Switch>
 
       </div>

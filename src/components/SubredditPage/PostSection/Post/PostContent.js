@@ -16,8 +16,7 @@ export const PostContent = ({ postData, totalComments }) => {
                 body: JSON.stringify(createComment),
                 headers: { "Content-Type": "application/json" }
             })
-                .then(response => response.json())
-                .then(json => console.log(json));
+                .then(window.location.reload());
         } catch (error) {
             console.error(error);
         }
@@ -71,7 +70,7 @@ export const PostContent = ({ postData, totalComments }) => {
                 <div className="post-comment-box">
                     <p>Comment as <span>John Doe</span></p>
                     <div className="comment">
-                        <textarea rows="20" placeholder="What are your thoughts?" onChange={(e) => setCreateComment({...createComment, content: e.target.value })} />
+                        <textarea rows="20" placeholder="What are your thoughts?" value={createComment.content} onChange={(e) => setCreateComment({ ...createComment, content: e.target.value })} />
                         <div className="comment-btn-div"><button onClick={() => createNewComment()}>Comment</button></div>
                     </div>
                 </div>

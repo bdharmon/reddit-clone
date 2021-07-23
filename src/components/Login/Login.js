@@ -3,8 +3,9 @@ import './login.css';
 
 export const Login = () => {
     const [credentials, setCredentials] = useState({
-        email: '',
-        password: ''
+        username: '',
+        password: '',
+        password2: ''
     });
 
     const onChangeHandler = (e) => {
@@ -23,8 +24,9 @@ export const Login = () => {
             .then(data => console.log(data))
             .catch(error => console.error(error));
         setCredentials({
-            email: '',
+            username: '',
             password: '',
+            password: ''
         });
     };
 

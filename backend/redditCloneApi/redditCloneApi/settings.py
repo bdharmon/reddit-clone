@@ -83,7 +83,7 @@ TEMPLATES = [
     },
 ]
 
-AUTH_USER_MODEL = 'reddit_api.Account'
+# AUTH_USER_MODEL = 'redditCloneApi.auth.User'
 
 WSGI_APPLICATION = 'redditCloneApi.wsgi.application'
 
