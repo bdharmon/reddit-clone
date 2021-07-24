@@ -6,6 +6,7 @@
     font-size: 0.9rem;
     max-width: 215px;
     padding: 10px;
+    position: relative;
     width: 100%;
 }
 
@@ -27,6 +28,31 @@
 
 .account-btn .fa-reddit-square {
     position: relative;
+}
+
+.account-dropdown {
+    background-color: #1d1d1d;
+    border: 1px solid rgb(73, 73, 73);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 100%;
+}
+
+.account-dropdown li {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    width: 100%;
+}
+
+.account-dropdown:hover {
+    background-color: rgb(71, 71, 71);
 }
 
 .account-name {
@@ -101,6 +127,12 @@
 .login-container button:first-child:hover {
     cursor: pointer;
     background-color: #252525;
+}
+
+.logout-btn {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
 }
 
 .reddit-icon {

@@ -1,20 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../css/postContent.css';
+import { useSelector } from 'react-redux';
 
 export const PostContent = ({ postData, totalComments }) => {
+    const { token, user } = useSelector(state => state.authReducer);
+    const [showOptions, setShowOptions] = useState(false);
     const [createComment, setCreateComment] = useState({
         content: "",
-        author: 10,
-        original_post: postData.id
+        author: "",
+        original_post: ""
     });
+
+    useEffect(() => {
+        if (user) {
+            setCreateComment({ author: user.id, original_post: postData.id });
+        }
+    }, []);
 
     const createNewComment = () => {
         try {
             fetch(`http://127.0.0.1:8000/redditclone/comments/?original_post=${postData.id}`, {
                 method: "POST",
                 body: JSON.stringify(createComment),
-                headers: { "Content-Type": "application/json" }
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Token ${token}`
+                }
             })
                 .then(window.location.reload());
         } catch (error) {
@@ -39,10 +51,19 @@ export const PostContent = ({ postData, totalComments }) => {
 
             <div className="post-content-main">
                 <div className="post-content-header">
-                    <div className="post-header">
-                        <Link to={`/r/${postData.subreddit}`}><i className="fas fa-icons"></i></Link>
-                        <Link to={`/r/${postData.subreddit}`}><p className="post-subreddit">r/{postData.subreddit}</p></Link>
-                        <p className="posted-by">Posted by <span className="author">u/{postData.author}</span> <span className="bull-sep">&bull;</span> <span className="date-created">{postData.date_created} hours ago</span></p>
+                    <div className="post-header-top">
+                        <div style={{ display: "flex" }}><Link to={`/r/${postData.subreddit}`}><i className="fas fa-icons"></i></Link>
+                            <Link to={`/r/${postData.subreddit}`}><p className="post-subreddit">r/{postData.subreddit}</p></Link></div>
+
+                        <div style={{ display: "flex", marginLeft: "10px" }}><p className="posted-by">Posted by <span className="author">u/{postData.author}</span> <span className="bull-sep">&bull;</span> <span className="date-created">{postData.date_created} hours ago</span></p></div>
+
+                        {user ? <div style={{ marginLeft: "auto", position: "relative", cursor: "pointer" }}>
+                            <i class="fas fa-ellipsis-h" onClick={() => setShowOptions(!showOptions)}></i>
+                            {showOptions ? <ul className="post-dropdown">
+                                <li><p>Edit Post</p> <i class="fas fa-edit"></i></li>
+                                <li><p style={{ marginRight: "20px" }}>Delete Post</p> <i class="fas fa-trash-alt"></i></li>
+                            </ul> : null}
+                        </div> : null}
                     </div>
                     <p className="main-post-title">{postData.title}</p>
                     <p className="main-post-flair">Discussion</p>
@@ -67,13 +88,14 @@ export const PostContent = ({ postData, totalComments }) => {
                     </ul>
                 </div>
 
-                <div className="post-comment-box">
-                    <p>Comment as <span>John Doe</span></p>
+                {user ? <div className="post-comment-box">
+                    <p>Comment as <span>{user.username}</span></p>
                     <div className="comment">
                         <textarea rows="20" placeholder="What are your thoughts?" value={createComment.content} onChange={(e) => setCreateComment({ ...createComment, content: e.target.value })} />
                         <div className="comment-btn-div"><button onClick={() => createNewComment()}>Comment</button></div>
                     </div>
-                </div>
+                </div> : <p style={{ marginBottom: "25px", textAlign: "center", fontSize: "1.1rem", fontWeight: "700" }}>You must log in to post comments.</p>}
+
             </div>
         </div>
     );

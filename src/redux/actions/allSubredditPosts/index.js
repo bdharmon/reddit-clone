@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { tokenConfig } from '../auth';
 
 export const FETCH_SUBREDDITPOSTS_REQUEST = "FETCH_SUBREDDITPOSTS_REQUEST";
 export const FETCH_SUBREDDITPOSTS_SUCCESS = "FETCH_SUBREDDITPOSTS_SUCCESS";
@@ -18,10 +19,10 @@ export const fetchSubredditPostsFailure = error => ({
   payload: error
 });
 
-export const fetchSubredditPosts = (subreddit) => (dispatch) => {
+export const fetchSubredditPosts = (subreddit) => (dispatch, getState) => {
   dispatch({ type: FETCH_SUBREDDITPOSTS_REQUEST });
 
-  axios.get(`http://127.0.0.1:8000/redditclone/?subreddit__name=${subreddit}`)
+  axios.get(`http://127.0.0.1:8000/redditclone/?subreddit__name=${subreddit}`, tokenConfig(getState))
     .then(response => {
       return dispatch({ type: FETCH_SUBREDDITPOSTS_SUCCESS, payload: response.data })
     })

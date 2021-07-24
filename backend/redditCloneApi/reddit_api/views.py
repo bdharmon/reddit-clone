@@ -58,6 +58,10 @@ class SubredditViewSet(viewsets.ModelViewSet):
 
 # specific subreddit page
 class SubredditDetailViewSet(viewsets.ModelViewSet):
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
+
     lookup_field = "name"
     def retrieve(self, request, name=None):
         queryset = Subreddit.objects.get(name__icontains=name)
@@ -66,20 +70,15 @@ class SubredditDetailViewSet(viewsets.ModelViewSet):
 
 # All Posts
 class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
     permission_classes = [
-        permissions.IsAuthenticated
+        permissions.IsAuthenticatedOrReadOnly
     ]
 
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["subreddit__name", "id"]
-
-    serializer_class = PostSerializer
-
-    def get_queryset(self):
-        return self.request.user.posts.all()
-
-    def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()

@@ -13,9 +13,7 @@ export const Login = () => {
     const dispatch = useDispatch();
 
     const onChangeHandler = (e) => {
-        const credentialsCopy = { ...credentials };
-        credentialsCopy[e.target.name] = e.target.value;
-        setCredentials(credentialsCopy);
+        setCredentials({ ...credentials, [e.target.name]: e.target.value });
     };
 
     const submitHandler = () => {

@@ -6,13 +6,15 @@ import { useSelector } from 'react-redux';
 export const CreateNewPost = ({ thisSubReddit }) => {
     const [showCommunityDropdownList, setShowCommunityDropdownList] = useState(false);
     const { items } = useSelector(state => state.subredditListReducer);
-    const { isAuthenticated } = useSelector(state => state.authReducer);
+    const { token, isAuthenticated, user } = useSelector(state => state.authReducer);
     const [createData, setCreateData] = useState({
         title: "",
         content: "",
-        author: "11",
+        author: "",
         subreddit: ""
     });
+
+    console.log(thisSubReddit);
 
     const showDropdownListHandler = () => {
         setShowCommunityDropdownList(!showCommunityDropdownList);
@@ -26,8 +28,8 @@ export const CreateNewPost = ({ thisSubReddit }) => {
     });
 
     useEffect(() => {
-        if (thisSubReddit) {
-            setCreateData({ ...createData, subreddit: thisSubReddit.id })
+        if (user) {
+            setCreateData({ ...createData, author: user.id, subreddit: thisSubReddit.id });
         }
     }, [thisSubReddit])
 
@@ -40,18 +42,15 @@ export const CreateNewPost = ({ thisSubReddit }) => {
             fetch(`http://127.0.0.1:8000/redditclone/?subreddit__name=${thisSubReddit.name}`, {
                 method: "POST",
                 body: JSON.stringify(createData),
-                headers: { "Content-Type": "application/json" }
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Token ${token}`
+                }
             })
                 .then(window.location.href = `/r/${thisSubReddit.name}`);
         } catch (error) {
             console.error(error);
         }
-        setCreateData({
-            title: "",
-            content: "",
-            author: "11",
-            subreddit: ""
-        });
     };
 
     const privateTest = () => {

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { tokenConfig } from '../auth/index';
 
 export const FETCH_POSTS_REQUEST = "FETCH_POSTS_REQUEST";
 export const FETCH_POSTS_SUCCESS = "FETCH_POSTS_SUCCESS";
@@ -18,10 +19,10 @@ export const fetchPostsFailure = error => ({
   payload: error
 });
 
-export const fetchPosts = () => (dispatch) => {
+export const fetchPosts = () => (dispatch, getState) => {
   dispatch({ type: FETCH_POSTS_REQUEST });
 
-  axios.get("http://127.0.0.1:8000/redditclone/")
+  axios.get("http://127.0.0.1:8000/redditclone/", tokenConfig(getState))
     .then(response => {
       return dispatch({ type: FETCH_POSTS_SUCCESS, payload: response.data })
     })
