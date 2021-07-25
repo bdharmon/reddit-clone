@@ -80,6 +80,17 @@ class PostViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["subreddit__name", "id"]
 
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.author == request.user:
+            instance.delete()
+            return Response("Post deleted.")
+        else:
+            return Response("Unauthorized.")
+
+
+        
+
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer

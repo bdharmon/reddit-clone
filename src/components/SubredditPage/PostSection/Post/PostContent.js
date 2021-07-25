@@ -18,6 +18,7 @@ export const PostContent = ({ postData, totalComments }) => {
         }
     }, []);
 
+    // POST COMMENT
     const createNewComment = () => {
         try {
             fetch(`http://127.0.0.1:8000/redditclone/comments/?original_post=${postData.id}`, {
@@ -29,6 +30,27 @@ export const PostContent = ({ postData, totalComments }) => {
                 }
             })
                 .then(window.location.reload());
+        } catch (error) {
+            console.error(error);
+        }
+        setCreateComment({
+            content: "",
+            author: "",
+            original_post: ""
+        });
+    };
+
+    // DELETE COMMENT
+    const deletePost = () => {
+        try {
+            fetch(`http://127.0.0.1:8000/redditclone/${postData.id}/`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Token ${token}`
+                }
+            })
+                .then(window.location.href = '/');
         } catch (error) {
             console.error(error);
         }
@@ -52,16 +74,16 @@ export const PostContent = ({ postData, totalComments }) => {
             <div className="post-content-main">
                 <div className="post-content-header">
                     <div className="post-header-top">
-                        <div style={{ display: "flex" }}><Link to={`/r/${postData.subreddit}`}><i className="fas fa-icons"></i></Link>
+                        <div style={{ display: "flex" }}><Link style={{ marginRight: "5px" }} to={`/r/${postData.subreddit}`}><i className="fas fa-icons"></i></Link>
                             <Link to={`/r/${postData.subreddit}`}><p className="post-subreddit">r/{postData.subreddit}</p></Link></div>
 
                         <div style={{ display: "flex", marginLeft: "10px" }}><p className="posted-by">Posted by <span className="author">u/{postData.author}</span> <span className="bull-sep">&bull;</span> <span className="date-created">{postData.date_created} hours ago</span></p></div>
 
-                        {user ? <div style={{ marginLeft: "auto", position: "relative", cursor: "pointer" }}>
+                        {user && user.username === postData.author ? <div style={{ marginLeft: "auto", position: "relative", cursor: "pointer" }}>
                             <i class="fas fa-ellipsis-h" onClick={() => setShowOptions(!showOptions)}></i>
                             {showOptions ? <ul className="post-dropdown">
                                 <li><p>Edit Post</p> <i class="fas fa-edit"></i></li>
-                                <li><p style={{ marginRight: "20px" }}>Delete Post</p> <i class="fas fa-trash-alt"></i></li>
+                                <li onClick={() => deletePost()}><p style={{ marginRight: "20px" }}>Delete Post</p> <i class="fas fa-trash-alt"></i></li>
                             </ul> : null}
                         </div> : null}
                     </div>
@@ -94,7 +116,7 @@ export const PostContent = ({ postData, totalComments }) => {
                         <textarea rows="20" placeholder="What are your thoughts?" value={createComment.content} onChange={(e) => setCreateComment({ ...createComment, content: e.target.value })} />
                         <div className="comment-btn-div"><button onClick={() => createNewComment()}>Comment</button></div>
                     </div>
-                </div> : <p style={{ marginBottom: "25px", textAlign: "center", fontSize: "1.1rem", fontWeight: "700" }}>You must log in to post comments.</p>}
+                </div> : <p style={{ marginBottom: "25px", textAlign: "center", fontSize: "1.1rem", fontWeight: "700" }}>You must <Link style={{ color: "#4FBCFF" }} to="/login">log in</Link> to post comments.</p>}
 
             </div>
         </div>

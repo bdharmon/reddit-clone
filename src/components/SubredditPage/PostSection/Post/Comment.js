@@ -1,9 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../css/comment.css';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-export const Comment = ({ item }) => {
+export const Comment = ({ postData, item }) => {
+    const { token, user } = useSelector(state => state.authReducer);
+    const [showReply, setShowReply] = useState(false);
+    const [createComment, setCreateComment] = useState({
+        content: "",
+        author: "",
+        original_post: "",
+        parent_comment: ""
+    });
+
+    useEffect(() => {
+        if (user) {
+            setCreateComment({ author: user.id, original_post: postData.id, parent_comment: item.id });
+        }
+    }, []);
+
+    const createNewComment = () => {
+        try {
+            fetch(`http://127.0.0.1:8000/redditclone/comments/?original_post=${postData.id}`, {
+                method: "POST",
+                body: JSON.stringify(createComment),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Token ${token}`
+                }
+            })
+                .then(window.location.reload());
+        } catch (error) {
+            console.error(error);
+        }
+        setCreateComment({
+            content: "",
+            author: "",
+            original_post: ""
+        });
+    };
+
     return (
-        <div className="user-comment">
+        <div id={item.id} className="user-comment">
             <div className="avi-container">
                 <i className="fas fa-user fa-lg"></i>
                 <div className="vert-comment-line"></div>
@@ -34,7 +72,7 @@ export const Comment = ({ item }) => {
 
                         <li>
                             <ul className="comment-options">
-                                <li><i className="far fa-comment-alt"></i><p>Reply</p></li>
+                                <li onClick={() => setShowReply(!showReply)}><i className="far fa-comment-alt"></i><p>Reply</p></li>
                                 <li>Give Award</li>
                                 <li>Share</li>
                                 <li>Report</li>
@@ -43,8 +81,20 @@ export const Comment = ({ item }) => {
                         </li>
                     </ul>
                 </div>
-            </div>
 
+                {showReply ? <div>
+                    {user ? <div className="post-comment-box reply-box">
+                        <p>Comment as <span>{user.username}</span></p>
+                        <div className="comment">
+                            <textarea rows="20" placeholder="What are your thoughts?" value={createComment.content} onChange={(e) => setCreateComment({ ...createComment, content: e.target.value })} />
+                            <div className="comment-btn-div"><button onClick={() => createNewComment()}>Comment</button></div>
+                        </div>
+                    </div> : <p style={{ marginBottom: "10px", marginTop: "10px", textAlign: "center", fontSize: "1.1rem", fontWeight: "700" }}>You must <Link style={{ color: "#4FBCFF" }} to="/login">log in</Link> to reply to comments.</p>}
+                </div> : null}
+
+                {item.childComments ? item.childComments.map(item => <div style={{marginTop: "15px"}}>{item}</div>) : null}
+            </div>
         </div>
     );
 };
+

@@ -1,43 +1,52 @@
 .login-form {
     align-items: center;
-    background-color: rgb(73, 54, 38);
+    background-color: rgb(240, 240, 240);
     border-radius: 10px;
+    box-shadow: rgba(255, 255, 255, 0.39) 0px 7px 29px 0px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-top: 100px;
-    padding: 100px;
+    max-width: 650px;
+    padding: 50px 10px;
+    width: 100%;
 }
 
 .login-form .form-info {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
+    max-width: 75%;
+    width: 100%;
 }
 
 .login-form .form-info button {
     background-color: #4FBCFF;
     border: none;
-    border-radius: 5px;
+    border-radius: 9999px;
     font-size: 1.1rem;
     font-weight: 700;
-    margin-top: 10px;
-    padding: 10px;
+    margin: 10px 0;
+    padding: 12px 10px;
 }
 
 .login-form .form-info button:hover {
-    background-color: #44a1db;
+    background-color: #59ade2;
     cursor: pointer;
 }
 
 .login-form input {
     border: none;
-    border-radius: 5px;
-    font-size: 1rem;
+    border-radius: 9999px;
+    font-size: 1.1rem;
     font-weight: 700;
-    margin-bottom: 10px;
     outline: none;
-    padding: 10px;
+    padding: 12px 10px 12px 40px;
+    width: 100%;
+}
+
+.login-form p {
+    color: rgb(107, 107, 107);
 }
 
 .login-form p:first-of-type {
@@ -47,4 +56,76 @@
 
 .login-form span {
     color: #4FBCFF;
+}
+
+.login-img {
+    height: 75px;
+    margin-bottom: 50px;
+}
+
+.o-auth {
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 15px;
+    max-width: 65%;
+    width: 100%;
+}
+
+.o-auth div {
+    align-items: center;
+    display: flex;
+    background-color: white;
+    border-radius: 50%;
+    height: 60px;
+    justify-content: center;
+    width: 60px;
+} 
+
+.o-auth div:hover {
+    background-color: rgb(216, 216, 216);
+    cursor: pointer;
+}
+
+.or-container {
+    align-items: center;
+    display: flex;
+    margin: 15px 0;
+    max-width: 65%;
+    width: 100%;
+}
+
+.or-container div {
+    background-color: rgb(182, 182, 182);
+    border-radius: 9999px;
+    height: 2px;
+    width: 100%;
+}
+
+.or-container p {
+    margin: 0 15px !important;
+}
+
+.password-div {
+    align-items: center;
+    display: flex;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.password-div i {
+    position: absolute;
+    left: 15px
+}
+
+.username-div {
+    align-items: center;
+    display: flex;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.username-div i {
+    position: absolute;
+    left: 15px
 }

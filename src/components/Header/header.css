@@ -22,8 +22,8 @@
     height: 12px;
     position: absolute;
     width: 12px;
-    top: 18px;
-    left: 18px;
+    top: 36px;
+    left: 33px;
 }
 
 .account-btn .fa-reddit-square {
@@ -103,8 +103,8 @@
 }
 
 .login-container button {
-    border: none;
     border-radius: 9999px;
+    cursor: pointer;
     font-size: 1rem;
     font-weight: 700;
     letter-spacing: 0.5px;
@@ -112,21 +112,26 @@
     width: 150px;
 }
 
-.login-container button:hover {
-    background-color: rgb(180, 180, 180);
-    cursor: pointer;
-}
-
-.login-container button:first-child {
+.login-btn {
     background-color: #1d1d1d;
     border: 1px solid #D7DADC;
     color: #D7DADC;
     margin-right: 20px;
 }
 
-.login-container button:first-child:hover {
+.login-btn:hover {
     cursor: pointer;
     background-color: #252525;
+}
+
+.sign-up-btn {
+    background-color: #D7DADC;
+    border: none;
+    color: #1d1d1d;
+}
+
+.sign-up-btn:hover {
+    background-color: rgb(180, 180, 180);
 }
 
 .logout-btn {
@@ -135,8 +140,8 @@
     justify-content: space-between;
 }
 
-.reddit-icon {
-    height: 35px;
+.r-icon {
+    height: 40px;
     margin-right: 20px;
 }
 

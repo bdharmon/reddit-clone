@@ -25,7 +25,7 @@ export const MainPost = () => {
 
     return (
         <div className="main-post">
-            {postData ? (<div><PostContent postData={postData[0]} /> <PostComments /></div>) : "Loading..."}
+            {postData ? (<div><PostContent postData={postData[0]} /> <PostComments postData={postData[0]} /></div>) : "Loading..."}
         </div>
     );
 };

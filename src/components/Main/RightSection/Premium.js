@@ -7,8 +7,8 @@ export const Premium = () => {
             <div className="shield-div">
                 <i className="fas fa-shield-alt fa-2x"></i>
                 <div>
-                    <p className="premium-header">Reddit Premium</p>
-                    <p>The best Reddit experience, with monthly Coins.</p>
+                    <p className="premium-header">_eddit Clone Premium</p>
+                    <p>The best _eddit Clone experience, with monthly Coins.</p>
                 </div>
             </div>
 

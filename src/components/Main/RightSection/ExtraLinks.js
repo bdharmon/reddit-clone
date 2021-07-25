@@ -16,7 +16,7 @@ export const ExtraLinks = () => {
                 </div>
             </div>
 
-            <p>2021 Reddit, Inc. All rights reserved.</p>
+            <p>2021 _eddit Clone, Inc. All rights reserved.</p>
         </div>
     );
 };

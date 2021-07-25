@@ -32,6 +32,7 @@ class Comment(models.Model):
     date_edited = models.DateTimeField(verbose_name="date_edited", auto_now=True)
     author = models.ForeignKey(User, related_name="comments", on_delete=models.CASCADE)
     original_post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    parent_comment = models.ForeignKey("self", null=True, blank=True, related_name="child_comment", on_delete=models.CASCADE)
 
     class Meta:
         constraints = [

@@ -28,8 +28,8 @@ export const CreateNewPost = ({ thisSubReddit }) => {
     });
 
     useEffect(() => {
-        if (user) {
-            setCreateData({ ...createData, author: user.id, subreddit: thisSubReddit.id });
+        if (thisSubReddit && user) {
+            setCreateData({ ...createData, subreddit: thisSubReddit.id, author: user.id });
         }
     }, [thisSubReddit])
 

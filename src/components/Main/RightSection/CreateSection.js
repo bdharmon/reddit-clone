@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './css/createSection.css';
-import redditMascot from '../../../images/reddit_mascot.png';
+import edditMascot from '../../../images/_eddit Clone-mascot.png';
 import planets from '../../../images/planets.jpg';
 
 export const CreateSection = () => {
@@ -11,14 +11,14 @@ export const CreateSection = () => {
                 <div className="create-section-header">
                     <img className="planets-img" src={planets} alt="" />
                     <div className="create-section-title">
-                        <img className="mascot" src={redditMascot} alt="" />
+                        <img className="mascot" src={edditMascot} alt="" />
                         <p>Home</p>
                     </div>
                 </div>
             </li>
 
             <li>
-                <p>Your personal Reddit frontpage. Come here to check in with your favorite communities.</p>
+                <p>Your personal _eddit Clone frontpage. Come here to check in with your favorite communities.</p>
             </li>
 
             <li className="create-btns">
