@@ -7,7 +7,7 @@ export const CreatePost = () => {
 
     return (
         <div className="create-post">
-            <i class="fas fa-align-left fa-lg"></i>
+            <i className="fas fa-align-left fa-lg"></i>
             <input className="search" placeholder="Create Post" onChange={() => history.push("/submit")} onClick={() => history.push("/submit")}/>
             <i className="far fa-image fa-lg"></i>
             <i className="fas fa-link fa-lg"></i>

@@ -33,7 +33,7 @@ export const Login = () => {
 
                     <div className="form-info">
                         <div className="username-div">
-                            <i class="fas fa-user"></i>
+                            <i className="fas fa-user"></i>
                             <input placeholder="Username" name="username" value={credentials.username} onChange={(e) => onChangeHandler(e)} />
                         </div>
 
@@ -54,9 +54,9 @@ export const Login = () => {
                     </div>
 
                     <div className="o-auth">
-                        <div><i class="fab fa-facebook-f fa-2x" style={{ color: "#4267B2" }}></i></div>
-                        <div><i class="fab fa-twitter fa-2x" style={{ color: "#1DA1F2" }}></i></div>
-                        <div><i class="fab fa-google fa-2x" style={{ color: "#DB4437" }}></i></div>
+                        <div><i className="fab fa-facebook-f fa-2x" style={{ color: "#4267B2" }}></i></div>
+                        <div><i className="fab fa-twitter fa-2x" style={{ color: "#1DA1F2" }}></i></div>
+                        <div><i className="fab fa-google fa-2x" style={{ color: "#DB4437" }}></i></div>
                     </div>
 
                 </div>

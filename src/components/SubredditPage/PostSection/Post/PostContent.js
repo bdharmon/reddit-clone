@@ -6,6 +6,9 @@ import { useSelector } from 'react-redux';
 export const PostContent = ({ postData, totalComments }) => {
     const { token, user } = useSelector(state => state.authReducer);
     const [showOptions, setShowOptions] = useState(false);
+    const [votes, setVotes] = useState([]);
+    const [upVotes, setUpvotes] = useState([]);
+    const [downVotes, setDownvotes] = useState([]);
     const [createComment, setCreateComment] = useState({
         content: "",
         author: "",
@@ -17,6 +20,29 @@ export const PostContent = ({ postData, totalComments }) => {
             setCreateComment({ author: user.id, original_post: postData.id });
         }
     }, []);
+
+    useEffect(() => {
+        fetch(`http://127.0.0.1:8000/redditclone/votes/?original_post=${postData.id}`)
+            .then(response => response.json())
+            .then(data => setVotes(data))
+            .catch(error => console.log(error));
+    }, []);
+
+    useEffect(() => {
+        const uVotes = [];
+        const dVotes = [];
+        votes.forEach(item => {
+            if (item.vote_choice === 1) {
+                uVotes.push(item);
+            }
+            if (item.vote_choice === 2) {
+                dVotes.push(item);
+            }
+        });
+
+        setUpvotes(uVotes);
+        setDownvotes(dVotes);
+    }, [votes]);
 
     // POST COMMENT
     const createNewComment = () => {
@@ -61,14 +87,35 @@ export const PostContent = ({ postData, totalComments }) => {
         });
     };
 
+    const castVote = (vote_type) => {
+        fetch(`http://127.0.0.1:8000/redditclone/votes/`, {
+            method: "POST",
+            body: JSON.stringify({
+                "owner": user.id,
+                "vote_choice": vote_type,
+                "original_post": postData.id
+            }),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${token}`
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                setVotes([...votes], data);
+                console.log(data);
+            })
+            .catch(error => console.log(error));
+    };
+
     return (
         <div className="post-content">
             <div className="post-content-votes">
-                <i className="fas fa-arrow-up fa-lg"></i>
-                <p>99</p>
+                <i className="fas fa-arrow-up fa-lg" onClick={() => castVote(1)}></i>
+                <p>{upVotes.length}</p>
                 <div className="vote-divider"></div>
-                <p>55</p>
-                <i className="fas fa-arrow-down fa-lg"></i>
+                <p>{downVotes.length}</p>
+                <i className="fas fa-arrow-down fa-lg" onClick={() => castVote(2)}></i>
             </div>
 
             <div className="post-content-main">
@@ -104,8 +151,8 @@ export const PostContent = ({ postData, totalComments }) => {
                         <li><i className="far fa-eye-slash"></i><p>Hide</p></li>
                         <li><i className="far fa-flag"></i><p>Report</p></li>
                         <li className="vote-percent">
-                            <p>98% UpVoted</p>
-                            <p>2% DownVoted</p>
+                            <p>{Math.floor((upVotes.length / votes.length) * 100)}% UpVoted</p>
+                            <p>{Math.floor((downVotes.length / votes.length) * 100)}% DownVoted</p>
                         </li>
                     </ul>
                 </div>

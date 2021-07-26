@@ -2,8 +2,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
 from rest_framework import generics, viewsets, permissions
-from .models import Comment, Post, Subreddit
-from .serializers import CommentSerializer, LoginSerializer, PostSerializer, SubredditSerializer, UserSerializer, RegisterSerializer
+from .models import Comment, Post, Subreddit, Vote
+from .serializers import CommentSerializer, LoginSerializer, PostSerializer, SubredditSerializer, UserSerializer, RegisterSerializer, VoteSerializer
 from knox.models import AuthToken
 
 # Register API
@@ -97,3 +97,10 @@ class CommentViewSet(viewsets.ModelViewSet):
     
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["original_post"]
+
+class VoteViewSet(viewsets.ModelViewSet):
+    queryset = Vote.objects.all()
+    serializer_class = VoteSerializer
+
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["original_post", "original_comment"]

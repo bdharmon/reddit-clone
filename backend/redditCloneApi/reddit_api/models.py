@@ -41,3 +41,15 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+class Vote(models.Model):
+    original_post = models.ForeignKey(Post, related_name="post_votes", on_delete=models.CASCADE, null=True)
+    original_comment = models.ForeignKey(Comment, related_name="comment_votes", on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(User, related_name="votes", on_delete=models.CASCADE)
+    vote_choice = models.IntegerField(choices=((1, "UP"), (2, "DOWN")))
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["original_post", "owner"], name="sameOwner_samePost_notAllowed"),
+            models.UniqueConstraint(fields=["original_comment", "owner"], name="sameOwner_sameComment_notAllowed")
+        ]

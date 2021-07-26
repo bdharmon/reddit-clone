@@ -16,10 +16,9 @@ export const PostComments = ({ postData }) => {
 
     const loadedComments = () => {
         if (items.length < 1) {
-            return ("No comment(s) to display.");
+            return (<p style={{fontSize: "1.2rem", marginBottom: "10px", textAlign: "center"}}>No comment(s) to display.</p>);
         }
         else {
-            // return (items.map((item) => <Comment postData={postData} key={item.id} item={item} />))
             return (items.map((item) => {
                 item["childComments"] = [];
                 if (!item.parent_comment) {

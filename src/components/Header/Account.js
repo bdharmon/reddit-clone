@@ -21,7 +21,7 @@ export const Account = () => {
 
     return (
         <div className="account-btn" onClick={() => showDropdownListHandler()}>
-            <i class="fas fa-user-circle fa-2x"><div className="account-status"></div></i>
+            <i className="fas fa-user-circle fa-2x"><div className="account-status"></div></i>
             <div className="account-name">
                 <p>{user.username}</p>
                 <div className="karma"><i className="far fa-compass"></i><p>1.5k karma</p></div>
@@ -30,7 +30,7 @@ export const Account = () => {
 
             {showDropdownList ? (
                 <ul className="account-dropdown">
-                    <li onClick={() => dispatch(logout())}><p>Log Out</p><i class="fas fa-sign-out-alt"></i></li>
+                    <li onClick={() => dispatch(logout())}><p>Log Out</p><i className="fas fa-sign-out-alt"></i></li>
                 </ul>) : null}
         </div>
     );
