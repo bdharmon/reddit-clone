@@ -47,23 +47,22 @@ export const Post = ({ item }) => {
         })
             .then(response => response.json())
             .then(data => {
-                setVotes([...votes], data);
-                console.log(data);
+                setVotes([...votes, data]);
             })
             .catch(error => console.log(error));
     };
 
     return (
-        <Link to={`/r/${item.subreddit}/post/${item.id}`}>
-            <div className="post">
-                <div className="post-content-votes">
-                    <i className="fas fa-arrow-up fa-lg" onClick={() => castVote(1)}></i>
-                    <p>{upVotes.length}</p>
-                    <div className="vote-divider"></div>
-                    <p>{downVotes.length}</p>
-                    <i className="fas fa-arrow-down fa-lg" onClick={() => castVote(2)}></i>
-                </div>
+        <div className="post">
+            <div className="post-content-votes">
+                <i className="fas fa-arrow-up fa-lg" onClick={() => castVote(1)}></i>
+                <p>{upVotes.length}</p>
+                <div className="vote-divider"></div>
+                <p>{downVotes.length}</p>
+                <i className="fas fa-arrow-down fa-lg" onClick={() => castVote(2)}></i>
+            </div>
 
+            <Link to={`/r/${item.subreddit}/post/${item.id}`} style={{width: "100%"}}>
                 <div className="right">
                     <div className="post-header">
                         <Link to={`/r/${item.subreddit}`}><i className="fas fa-icons"></i></Link>
@@ -90,8 +89,8 @@ export const Post = ({ item }) => {
                         </ul>
                     </div>
                 </div>
-            </div>
-        </Link>
+            </Link>
 
+        </div>
     );
 };

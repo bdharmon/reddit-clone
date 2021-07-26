@@ -60,7 +60,7 @@ export const Comment = ({ postData, item }) => {
         })
             .then(response => response.json())
             .then(data => {
-                setVotes([...votes], data);
+                setVotes([...votes, data]);
                 console.log(data);
             })
             .catch(error => console.log(error));

@@ -102,7 +102,7 @@ export const PostContent = ({ postData, totalComments }) => {
         })
             .then(response => response.json())
             .then(data => {
-                setVotes([...votes], data);
+                setVotes([...votes, data]);
                 console.log(data);
             })
             .catch(error => console.log(error));
