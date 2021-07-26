@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Sections = () => {
     return (
@@ -10,7 +11,7 @@ export const Sections = () => {
                 <li><div className="vertical-line"></div></li>
                 <li className="sections-btn"><i className="far fa-comment-dots fa-lg"></i></li>
                 <li className="sections-btn"><i className="far fa-bell fa-lg"></i></li>
-                <li className="sections-btn"><i className="fas fa-plus fa-lg"></i></li>
+                <Link to="/submit"><li className="sections-btn"><i className="fas fa-plus fa-lg"></i></li></Link>
                 <li className="coin-btn"><i className="fas fa-donate fa-lg"></i>Coin Sale</li>
             </ul>
         </div>

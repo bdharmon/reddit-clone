@@ -22,8 +22,10 @@ export const CreateSection = () => {
             </li>
 
             <li className="create-btns">
-                <Link to="/submit"><li><button className="post-btn">Create Post</button></li></Link>
-                <Link><li><button className="comm-btn">Create Community</button></li></Link>
+                <ul>
+                    <Link to="/submit"><li><button className="post-btn">Create Post</button></li></Link>
+                    <Link to=""><li><button className="comm-btn">Create Community</button></li></Link>
+                </ul>
             </li>
         </ul>
     );

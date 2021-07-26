@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import '../../css/postComments.css';
 import { Comment } from './Comment';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,20 +16,22 @@ export const PostComments = ({ postData }) => {
 
     const loadedComments = () => {
         if (items.length < 1) {
-            return (<p style={{fontSize: "1.2rem", marginBottom: "10px", textAlign: "center"}}>No comment(s) to display.</p>);
+            return (<p style={{ fontSize: "1.2rem", marginBottom: "10px", textAlign: "center" }}>No comment(s) to display.</p>);
         }
         else {
             return (items.map((item) => {
                 item["childComments"] = [];
                 if (!item.parent_comment) {
-                    return <Comment postData={postData} key={item.id} item={item} />
+                    return <Comment postData={postData} key={item.id} item={item} />;
                 }
                 if (item.parent_comment) {
                     const parentComment = items.find(itemx => itemx.id === item.parent_comment);
-                    parentComment.childComments.push(<Comment postData={postData} key={item.id} item={item} />)
-                    console.log("parent: ", parentComment);
+                    return (parentComment.childComments.push(<Comment postData={postData} key={item.id} item={item} />));
                 }
-            }))
+                else {
+                    return null;
+                }
+            }));
         }
     };
 

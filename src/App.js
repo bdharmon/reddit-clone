@@ -7,7 +7,6 @@ import { SignUp } from './components/Login/SignUp';
 import { Main } from './components/Main/Main';
 import { SubredditPage } from './components/SubredditPage/SubredditPage';
 import { CreateNewPost } from './components/CreateNewPost/CreateNewPost';
-import { PrivateRoute } from './components/common/PrivateRoute';
 import { loadUser } from './redux/actions/auth/index';
 import { useDispatch } from 'react-redux';
 
@@ -16,7 +15,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(loadUser());
-  }, [])
+  }, [dispatch])
 
   return (
     <Router>

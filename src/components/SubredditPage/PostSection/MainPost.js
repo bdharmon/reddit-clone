@@ -3,11 +3,9 @@ import '../css/mainPost.css';
 import { useParams } from 'react-router';
 import { PostContent } from './Post/PostContent';
 import { PostComments } from './Post/PostComments';
-import { useSelector } from 'react-redux';
 
 export const MainPost = () => {
     const subreddit__name = window.location.pathname.split("/")[2];
-    const { token, user } = useSelector(state => state.authReducer);
     const { postid } = useParams();
     const [postData, setPostData] = useState(null);
 

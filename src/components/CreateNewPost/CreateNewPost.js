@@ -14,7 +14,6 @@ export const CreateNewPost = ({ thisSubReddit }) => {
         subreddit: ""
     });
 
-    console.log(thisSubReddit);
 
     const showDropdownListHandler = () => {
         setShowCommunityDropdownList(!showCommunityDropdownList);

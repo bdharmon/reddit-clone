@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import './css/postSection.css';
 import { CreatePost } from './CreatePost'
 import { Post } from './Post'
@@ -12,7 +12,7 @@ export const PostSection = () => {
 
     useEffect(() => {
         dispatch(fetchPosts());
-    }, []);
+    }, [dispatch]);
 
     return (
         <div className="post-section">

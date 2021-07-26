@@ -12,7 +12,6 @@ import { fetchSubredditPosts } from '../../redux/actions/allSubredditPosts';
 
 export const SubredditPage = () => {
     const { items, loading } = useSelector(state => state.allSubredditPostsReducer);
-    const { token } = useSelector(state => state.authReducer);
     const { subreddit } = useParams();
     const [thisSubReddit, setThisSubReddit] = useState(null);
     const [isLoading, setLoading] = useState(true);

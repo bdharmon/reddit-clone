@@ -18,17 +18,25 @@ export const Comment = ({ postData, item }) => {
     });
 
     useEffect(() => {
+        const uVotes = [];
+        const dVotes = [];
+
         votes.forEach(item => {
             if (item.vote_choice === 1) {
-                setUpvotes([...upVotes, item]);
+                uVotes.push(item);
             }
-            if (item.vote_choice === 2) {
-                setDownvotes([...downVotes, item]);
+            else if (item.vote_choice === 2) {
+                dVotes.push(item);
             }
-            if (item.owner === user.username) {
-                setOwnerVote(item);
+            if (user) {
+                if (item.owner === user.username) {
+                    setOwnerVote(item);
+                }
             }
         });
+
+        setUpvotes(uVotes);
+        setDownvotes(dVotes);
     }, [votes]);
 
     useEffect(() => {
@@ -39,19 +47,56 @@ export const Comment = ({ postData, item }) => {
 
 
     useEffect(() => {
-        fetch(`http://127.0.0.1:8000/redditclone/votes/?original_comment=${item.id}`)
+        const controller = new AbortController();
+
+        fetch(`http://127.0.0.1:8000/redditclone/votes/?original_comment=${item.id}`, {signal: controller.signal})
             .then(response => response.json())
             .then(data => setVotes(data))
             .catch(error => console.log(error));
+
+        return () => {
+            controller.abort();
+        }
     }, []);
 
     const castVote = (vote_type) => {
-        if (ownerVote) {
-            if (vote_type === ownerVote.vote_choice) {
+        if (user) {
+            if (ownerVote) {
+                if (vote_type === ownerVote.vote_choice) {
+                    return;
+                }
+                fetch(`http://127.0.0.1:8000/redditclone/votes/${ownerVote.id}/`, {
+                    method: "PUT",
+                    body: JSON.stringify({
+                        "owner": user.id,
+                        "vote_choice": vote_type,
+                        "original_comment": item.id
+                    }),
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Token ${token}`
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (vote_type === 1) {
+                            const newD = downVotes.filter(item => item.id !== data.id)
+                            setUpvotes([...upVotes, data]);
+                            setDownvotes(newD);
+                        }
+                        if (vote_type === 2) {
+                            const newU = upVotes.filter(item => item.id !== data.id);
+                            setDownvotes([...downVotes, data]);
+                            setUpvotes(newU);
+                        }
+                        setOwnerVote(data);
+                    })
+                    .catch(error => console.log(error));
                 return;
             }
-            fetch(`http://127.0.0.1:8000/redditclone/votes/${ownerVote.id}/`, {
-                method: "PUT",
+
+            fetch(`http://127.0.0.1:8000/redditclone/votes/`, {
+                method: "POST",
                 body: JSON.stringify({
                     "owner": user.id,
                     "vote_choice": vote_type,
@@ -64,39 +109,11 @@ export const Comment = ({ postData, item }) => {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (vote_type === 1) {
-                        const newD = downVotes.filter(item => item.id !== data.id)
-                        setUpvotes([...upVotes, data]);
-                        setDownvotes(newD);
-                    }
-                    if (vote_type === 2) {
-                        const newU = upVotes.filter(item => item.id !== data.id);
-                        setDownvotes([...downVotes, data]);
-                        setUpvotes(newU);
-                    }
-                    setOwnerVote(data);
+                    setVotes([...votes, data]);
                 })
                 .catch(error => console.log(error));
-            return;
         }
-
-        fetch(`http://127.0.0.1:8000/redditclone/votes/`, {
-            method: "POST",
-            body: JSON.stringify({
-                "owner": user.id,
-                "vote_choice": vote_type,
-                "original_comment": item.id
-            }),
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Token ${token}`
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                setVotes([...votes, data]);
-            })
-            .catch(error => console.log(error));
+        return;
     };
 
     const createNewComment = () => {
