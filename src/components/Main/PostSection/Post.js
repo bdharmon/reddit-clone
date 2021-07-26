@@ -8,6 +8,7 @@ export const Post = ({ item }) => {
     const [votes, setVotes] = useState([]);
     const [upVotes, setUpvotes] = useState([]);
     const [downVotes, setDownvotes] = useState([]);
+    const [ownerVote, setOwnerVote] = useState(null);
 
     useEffect(() => {
         fetch(`http://127.0.0.1:8000/redditclone/votes/?original_post=${item.id}`)
@@ -17,22 +18,59 @@ export const Post = ({ item }) => {
     }, []);
 
     useEffect(() => {
-        const uVotes = [];
-        const dVotes = [];
         votes.forEach(item => {
             if (item.vote_choice === 1) {
-                uVotes.push(item);
+                setUpvotes([...upVotes, item]);
             }
-            if (item.vote_choice === 2) {
-                dVotes.push(item);
+            else if (item.vote_choice === 2) {
+                setDownvotes([...downVotes, item]);
+            }
+            if (item.owner === user.username) {
+                setOwnerVote(item);
             }
         });
-
-        setUpvotes(uVotes);
-        setDownvotes(dVotes);
     }, [votes]);
 
     const castVote = (vote_type) => {
+        if (ownerVote) {
+            if (vote_type === ownerVote.vote_choice) {
+                return;
+            }
+            fetch(`http://127.0.0.1:8000/redditclone/votes/${ownerVote.id}/`, {
+                method: "PUT",
+                body: JSON.stringify({
+                    "owner": user.id,
+                    "vote_choice": vote_type,
+                    "original_post": item.id
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Token ${token}`
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const voteListCopy = [...votes];
+                    const updateVote = voteListCopy.findIndex(item => item.id === data.id);
+                    voteListCopy[updateVote].vote_choice = data.vote_choice;
+                    setVotes(voteListCopy);
+
+                    if (vote_type === 1) {
+                        const newD = downVotes.filter(item => item.id !== data.id)
+                        setUpvotes([...upVotes, data]);
+                        setDownvotes(newD);
+                    }
+                    if (vote_type === 2) {
+                        const newU = upVotes.filter(item => item.id !== data.id);
+                        setDownvotes([...downVotes, data]);
+                        setUpvotes(newU);
+                    }
+                    setOwnerVote(data);
+                })
+                .catch(error => console.log(error));
+            return;
+        }
+
         fetch(`http://127.0.0.1:8000/redditclone/votes/`, {
             method: "POST",
             body: JSON.stringify({
