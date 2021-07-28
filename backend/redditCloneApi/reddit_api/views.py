@@ -1,6 +1,7 @@
+from django.db.models.query_utils import Q
 from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Count
-from rest_framework import filters
+from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter
 from rest_framework.response import Response
 from rest_framework import generics, viewsets, permissions
@@ -72,23 +73,24 @@ class SubredditDetailViewSet(viewsets.ModelViewSet):
 
 # All Posts
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.annotate(vote_count=Count('post_votes'))
+    queryset = Post.objects.all()
     serializer_class = PostSerializer
 
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly
     ]
 
-    # def get_queryset(self):
-    #     qs = super().get_queryset()
-    #     with_counts = qs.annotate(vote_count=Count('post_votes'))
-    #     hotness_order = with_counts.order_by('-vote_count')
-    #     return hotness_order
-
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ["subreddit__name", "id"]
     ordering = ["-date_created"]
-    ordering_fields = ["vote_count", "date_created"]
+    ordering_fields = ["date_created"]
+
+    @action(detail=False)
+    def top_posts(self, request, *args, **kwargs):
+        top_count = Count("post_votes", filter=Q(post_votes__vote_choice=1)) - Count("post_votes", filter=Q(post_votes__vote_choice=2))
+        posts = Post.objects.annotate(top_count=top_count).order_by("-top_count")
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -97,16 +99,6 @@ class PostViewSet(viewsets.ModelViewSet):
             return Response("Post deleted.")
         else:
             return Response("Unauthorized.")
-
-class PostWithMostUpVotes(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-
-    def get_queryset(self):
-        qs = super().get_queryset()
-        with_counts = qs.annotate(vote_count=Count('post_votes'))
-        hotness_order = with_counts.order_by('-vote_count')
-        return hotness_order
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
@@ -121,12 +113,3 @@ class VoteViewSet(viewsets.ModelViewSet):
 
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ["original_post", "original_comment"]
-
-class PostWithMostUpVotes(viewsets.ModelViewSet):
-        def list(self, request, *args, **kwargs):
-            queryset = Vote.objects.raw("SELECT id, original_post_id FROM reddit_api_vote WHERE original_post_id IS NOT NULL AND vote_choice='1' GROUP BY original_post_id ORDER BY count(vote_choice) DESC;")
-            serializer = VoteSerializer(queryset, many=True)
-            sorted_list = []
-            for x in serializer.data:
-                sorted_list.append(x["original_post"])
-            return Response(sorted_list)

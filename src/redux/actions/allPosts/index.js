@@ -22,7 +22,7 @@ export const fetchPostsFailure = error => ({
 export const fetchPosts = (sortOption) => (dispatch, getState) => {
   dispatch({ type: FETCH_POSTS_REQUEST });
 
-  axios.get(`http://127.0.0.1:8000/redditclone/?ordering=${sortOption}`, tokenConfig(getState))
+  axios.get(`http://127.0.0.1:8000/redditclone/${sortOption}`, tokenConfig(getState))
     .then(response => {
       return dispatch({ type: FETCH_POSTS_SUCCESS, payload: response.data })
     })
