@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../redux/actions/auth';
 
 export const Account = () => {
     const [showDropdownList, setShowDropdownList] = useState(false);
+    const dropDownRef = useRef(null);
     const { user } = useSelector(state => state.authReducer);
     const dispatch = useDispatch();
 
@@ -11,12 +12,22 @@ export const Account = () => {
         setShowDropdownList(!showDropdownList);
     };
 
-    document.getElementsByTagName("BODY")[0].addEventListener("click", (e) => {
-        if (e.target === document.getElementsByClassName("account-btn")[0]) {
-            return;
+    useEffect(() => {
+        const pageClickEvent = (e) => {
+            if (dropDownRef.current !== null && !dropDownRef.current.contains(e.target)) {
+               setShowDropdownList(!showDropdownList);
+            }
+        };
+
+        if (showDropdownList) {
+            window.addEventListener("click", pageClickEvent)
         }
-        setShowDropdownList(false);
-    });
+
+        return () => {
+            window.removeEventListener("click", pageClickEvent)
+        }
+        
+    }, [showDropdownList])
 
     return (
         <div className="account-btn" onClick={() => showDropdownListHandler()}>
@@ -28,7 +39,7 @@ export const Account = () => {
             <i className="fas fa-chevron-down"></i>
 
             {showDropdownList ? (
-                <ul className="account-dropdown">
+                <ul className="account-dropdown" ref={dropDownRef}>
                     <li onClick={() => dispatch(logout())}><p>Log Out</p><i className="fas fa-sign-out-alt"></i></li>
                 </ul>) : null}
         </div>
